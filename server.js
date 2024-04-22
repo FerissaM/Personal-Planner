@@ -1,17 +1,14 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
 const app = express();
-
-require('dotenv').config();
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,47 +20,40 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configure express-session middleware
+// Session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'your-secret-key-here', // Replace 'your-secret-key-here' with your actual secret key
   resave: false,
   saveUninitialized: true
 }));
 
-// Initialize Passport middleware
+// Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure Passport serialization and deserialization
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-// Custom middleware to set req.user to res.locals.user
+// Custom middleware to make user available in views
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
 
+// Calendar route
+app.get('/calendar', function(req, res, next) {
+  // Calendar route implementation
+});
+
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
+// Error handling
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
