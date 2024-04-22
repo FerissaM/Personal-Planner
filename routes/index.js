@@ -1,9 +1,6 @@
-// routes/index.js
-
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   // Define monthNames array
   const monthNames = [
@@ -12,7 +9,6 @@ router.get('/', function(req, res, next) {
     'September', 'October', 'November', 'December',
   ];
 
-  // Define your logic to get the year here, for example:
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   const daysInMo = new Date(year, month + 1, 0).getDate(); // Get the number of days in the month
