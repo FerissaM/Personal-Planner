@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -8,7 +9,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function ensureAuthorized(req, res, next) {
-    if (/* Check if user is authorized */) {
+    // if user is authorized based on some condition
+    if (/* Add your authorization logic here */) {
         // If authorized
         return next();
     } else {
