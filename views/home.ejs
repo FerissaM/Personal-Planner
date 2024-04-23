@@ -1,11 +1,13 @@
+<!-- calendar.ejs -->
+
 <%- include('./partials/header') %>
 
 <h1>Monthly Calendar Example</h1>
 
 <h2>
-  <a href="/calendar?year=<%= year %>&month=<%= month - 1%>">◀</a>
-  <%= monthNames[month] %>, <%= year %>
-  <a href="/calendar?year=<%= year %>&month=<%= month + 1%>">▶</a>
+    <a href="/calendar?year=<%= year %>&months=<%= month - 1%>">◀</a>
+    <%= monthNames[month] %>, <%= year %>
+    <a href="/calendar?year=<%= year %>&months=<%= month + 1%>">▶</a>
 </h2>
 
 <section>
@@ -17,11 +19,7 @@
     <div>Fri</div>
     <div>Sat</div>
     <% for (let day = 1; day <= daysInMo; day++) { %>
-        <% if (day === 1) { %>
-        <div style="grid-column: <%= dow %>;"><%= day %></div>
-        <% } else { %>
-        <div><%= day %></div>
-        <% } %>
+        <div><a href="/details?year=<%= year %>&month=<%= month + 1 %>&day=<%= day %>"><%= day %></a></div>
     <% } %>
 </section>
 

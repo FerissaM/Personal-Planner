@@ -1,22 +1,23 @@
+const createError = require('http-errors');
 function ensureAuthenticated(req, res, next) {
-    // if user is logged in
     if (req.isAuthenticated()) {
-      return next();
+        return next();
     } else {
-      res.redirect('/login');
+        return next(createError(401, 'Authentication required'));
     }
-  }
-  
-  function ensureNotAuthenticated(req, res, next) {
-    if (!req.isAuthenticated()) {
-      return next();
+}
+
+function ensureAuthorized(req, res, next) {
+    if (/* Check if user is authorized */) {
+        // If authorized
+        return next();
     } else {
-      res.redirect('/home');
+        // If not authorized
+        return next(createError(403, 'Forbidden'));
     }
-  }
-  
-  module.exports = {
+}
+
+module.exports = {
     ensureAuthenticated,
-    ensureNotAuthenticated
-  };
-  
+    ensureAuthorized
+};
