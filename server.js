@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 // Calendar route
 app.get('/calendar', function(req, res, next) {
   // Calendar route implementation
+  res.render('calendar', { /* Pass any required data to the calendar view */ });
 });
 
 // Routes

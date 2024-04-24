@@ -1,41 +1,46 @@
 const express = require('express');
 const router = express.Router();
-const indexCtrl = require('../controllers/indexController');
-const { ensureLoggedIn } = require('connect-ensure-login');
 
-router.get('/year/:year/month/:month/day/:day', indexCtrl.day);
-router.post('/add-item', indexCtrl.addItem); // Define route for adding an item
-
-router.get('/protected', ensureLoggedIn(), (req, res) => {
-  res.send('You are authenticated and authorized to access this resource.');
-});
+const monthNames = [
+  'January', 'February', 'March', 'April',
+  'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December',
+];
 
 router.get('/', function(req, res, next) {
-  // Define monthNames array
-  const monthNames = [
-    'January', 'February', 'March', 'April',
-    'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December',
-  ];
+  // Default to today's year and month if not specified
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
-  const daysInMo = new Date(year, month + 1, 0).getDate(); // Get the number of days in the month
-  const dow = new Date(year, month, 1).getDay() + 1; // Get the day of the week for the first day of the month
+  const daysInMo = new Date(year, month + 1, 0).getDate();
+  const dow = new Date(year, month, 1).getDay() + 1;
 
-  res.render('home', { year, month, monthNames, daysInMo, dow });
+  res.render('index', { year, month, monthNames, daysInMo, dow }); 
 });
 
-router.get('/calendar/:year/:month/:day', function(req, res, next) {
-  debugger;
-  const { year, month, day } = req.params;
-  // Handle the click event on a specific day here
-  // You can redirect to a specific route or perform any action you want
-  res.redirect(`/details/${year}/${month}/${day}`); // Example: Redirect to a details page for the clicked day
-});
+router.get('/calendar', function(req, res, next) {
+  let year = parseInt(req.query.year);
+  let month = parseInt(req.query.month);
+  if (month === -1) {
+    year--;
+    month = 11;
+  } else if (month === 12) {
+    year++;
+    month = 0;
+  }
 
-router.use(function(req, res, next) {
-  res.status(404).send('404 - Not Found');
+  // Default to today's year and month if not specified
+  if (!year) {
+    const today = new Date();
+    year = today.getFullYear();
+    month = today.getMonth();
+  }
+
+  const daysInMo = new Date(year, month + 1, 0).getDate();
+  const dow = new Date(year, month, 1).getDay() + 1;
+
+  res.render('index', { year, month, monthNames, daysInMo, dow }); 
 });
 
 module.exports = router;
