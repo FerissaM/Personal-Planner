@@ -5,6 +5,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const methodOverride = require('method-override');
+
+require('dotenv').config();
+
+require('./config/database');
 
 // Import routes
 const indexRouter = require('./routes/index');
@@ -25,14 +30,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session middleware
 app.use(session({
-  secret: 'your-secret-key-here', // Replace 'your-secret-key-here' with your actual secret key
+  secret: 'secret-key-here',
   resave: false,
   saveUninitialized: true
 }));
 
-// Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride('_method')); 
 
 // Custom middleware to make user available in views
 app.use((req, res, next) => {
