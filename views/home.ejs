@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>
 <%- include('./partials/header') %>
 
 <h1>Monthly Calendar Example</h1>
@@ -17,10 +28,11 @@
     <div>Fri</div>
     <div>Sat</div>
     <% for (let day = 1; day <= daysInMo; day++) { %>
-        <!-- Make each day clickable with a link to the specific date -->
-        <div>
-            <a href="/year/<%= year %>/month/<%= month %>/day/<%= day %>"><%= day %></a>
-        </div>
+        <% if (day === 1) { %>
+        <div style="grid-column: <%= dow %>;"><%= day %></div>
+        <% } else { %>
+        <div><%= day %></div>
+        <% } %>
     <% } %>
 </section>
 

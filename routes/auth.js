@@ -1,29 +1,35 @@
-const express = require('express');
-const router = express.Router();
-const passport = require('passport');
-const { ensureAuthenticated } = require('../middleware/authMiddleware');
+// const express = require('express');
+// const router = express.Router();
+// const passport = require('passport');
 
-// Login Route
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
+// // GET request for logging in
+// router.get('/login', function(req, res, next) {
+//     res.render('login', { message: req.flash('loginMessage') });
+// });
 
-// Logout Route
-router.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/login');
-});
+// // POST request for logging in
+// router.post('/login', passport.authenticate('local-login', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/login',
+//     failureFlash: true
+// }));
 
-// Register Route
-router.post('/register', (req, res) => {
-});
+// // GET request for signing up
+// router.get('/signup', function(req, res, next) {
+//     res.render('signup', { message: req.flash('signupMessage') });
+// });
 
-// Protected Route 
-router.get('/dashboard', ensureAuthenticated, (req, res) => {
-    res.render('dashboard', { user: req.user });
-});
+// // POST request for signing up
+// router.post('/signup', passport.authenticate('local-signup', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/signup',
+//     failureFlash: true
+// }));
 
-module.exports = router;
+// // GET request for logging out
+// router.get('/logout', function(req, res) {
+//     req.logout();
+//     res.redirect('/');
+// });
+
+// module.exports = router;

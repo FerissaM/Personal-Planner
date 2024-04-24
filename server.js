@@ -6,8 +6,10 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 
+// Import routes
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/user');
+const usersRouter = require('./routes/users');
+const calendarRouter = require('./routes/calendar');
 
 const app = express();
 
@@ -38,15 +40,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Calendar route
-app.get('/calendar', function(req, res, next) {
-  // Calendar route implementation
-  res.render('calendar', { /* Pass any required data to the calendar view */ });
-});
-
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/calendar', calendarRouter);
 
 // Error handling
 app.use(function(req, res, next) {
