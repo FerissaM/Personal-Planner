@@ -13,7 +13,6 @@ require('./config/database');
 
 // Import routes
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const calendarRouter = require('./routes/calendar');
 
 const app = express();
@@ -47,7 +46,6 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/calendar', calendarRouter);
 
 // Error handling
