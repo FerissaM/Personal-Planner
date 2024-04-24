@@ -4,36 +4,34 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<body>
 <%- include('./partials/header') %>
 
 <h1>Monthly Calendar Example</h1>
 
 <h2>
-    <a href="/calendar?year=<%= year %>&months=<%= month - 1%>">◀</a>
-    <%= monthNames[month] %>, <%= year %>
-    <a href="/calendar?year=<%= year %>&months=<%= month + 1%>">▶</a>
+  <a href="/calendar?year=<%= year %>&month=<%= month - 1 %>">◀</a>
+  <%= monthNames[month] %>, <%= year %>
+  <a href="/calendar?year=<%= year %>&month=<%= month + 1 %>">▶</a>
 </h2>
 
 <section>
-    <div>Sun</div>
-    <div>Mon</div>
-    <div>Tue</div>
-    <div>Wed</div>
-    <div>Thu</div>
-    <div>Fri</div>
-    <div>Sat</div>
-    <% for (let day = 1; day <= daysInMo; day++) { %>
-        <% if (day === 1) { %>
-        <div style="grid-column: <%= dow %>;"><%= day %></div>
-        <% } else { %>
-        <div><%= day %></div>
-        <% } %>
+  <div>Sun</div>
+  <div>Mon</div>
+  <div>Tue</div>
+  <div>Wed</div>
+  <div>Thu</div>
+  <div>Fri</div>
+  <div>Sat</div>
+  <% for (let day = 1; day <= daysInMo; day++) { %>
+    <% if (day === 1) { %>
+      <div style="grid-column: <%= dow %>;"><%= day %></div>
+    <% } else { %>
+      <div><%= day %></div>
     <% } %>
+  <% } %>
 </section>
 
-<%- include('./partials/footer') %>
+<%- include('./partials/header') %>
+</body>
+</html>

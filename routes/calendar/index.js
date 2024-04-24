@@ -3,8 +3,7 @@ const router = express.Router();
 
 // GET request for the calendar page
 router.get('/', function(req, res, next) {
-    // Logic to render the calendar page goes here
-    res.render('calendar/index', { /* Pass any required data to the template */ });
+    res.render('calendar/index', { });
 });
 
 // POST request to handle adding an item to a specific day
