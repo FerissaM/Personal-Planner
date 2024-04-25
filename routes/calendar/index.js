@@ -8,10 +8,8 @@ router.get('/', function(req, res, next) {
 
 // POST request to handle adding an item to a specific day
 router.post('/add-item', function(req, res, next) {
-    // Extract the day and item information from the request body
+    // Extract the day and item information
     const { day, item } = req.body;
-
-    // Logic to add the item to the specific day goes here
 
     // Redirect back to the calendar page after adding the item
     res.redirect('/calendar');
