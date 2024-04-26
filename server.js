@@ -29,14 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session middleware
 app.use(session({
-  secret: 'secret-key-here',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(methodOverride('_method')); 
 
 // Custom middleware to make user available in views
 app.use((req, res, next) => {
