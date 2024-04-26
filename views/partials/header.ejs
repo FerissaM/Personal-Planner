@@ -7,3 +7,12 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
+    <nav>
+        <img src="/images/camera.svg">
+        <a href="/calendar" <%- title === 'Monthly Calendar' ? 'class="active"' : '' %></a>
+        <% if (user) { %>
+          <a href="/logout">LOG OUT</a>
+        <% } else { %>
+          <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+        <% } %>
+      </nav>
