@@ -1,17 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const calendarCtrl = require('../controllers/calendar');
 
-// GET request for the calendar page
-router.get('/', function(req, res, next) {
-    // Render the calendar view
-    res.render('calendar/index', { });
-});
+// GET /calendar (calendar page)
+router.get('/', calendarCtrl.monthly);
 
-// GET request for a specific date on the calendar
-router.get('/:year/:month/:day', function(req, res, next) {
-    const { year, month, day } = req.params;
-    // Handle fetching data
-    res.send(`Displaying information for ${year}-${month}-${day}`);
-});
+// GET /calendar/year/:year/month/:month/day/:day (day page)
+router.get('/year/:year/month/:month/day/:day', calendarCtrl.day);
+
+// POST for add task
+router.post('/year/:year/month/:month/day/:day/add-task', calendarCtrl.addTask);
 
 module.exports = router;

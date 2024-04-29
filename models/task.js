@@ -28,6 +28,7 @@ const taskSchema = new Schema({
     required: true
   },
   description: String,
+  date: Date,
   deadline: Date,
   completed: {
     type: Boolean,
