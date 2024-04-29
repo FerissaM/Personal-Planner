@@ -25,14 +25,17 @@ const taskSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    minlength: 1,
+    maxlength: 100
   },
   description: String,
   date: Date,
   deadline: Date,
   completed: {
-    type: Boolean,
-    default: false
+  type: Boolean,
+  default: false,
+  maxlength: 500
   },
   notes: [noteSchema]
 }, {

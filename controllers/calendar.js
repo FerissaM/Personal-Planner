@@ -1,18 +1,12 @@
 const Task = require("../models/task");
 
-module.exports = {
-  monthly,
-  day,
-  addTask
-};
-
 const monthNames = [
   'January', 'February', 'March', 'April',
   'May', 'June', 'July', 'August',
   'September', 'October', 'November', 'December',
 ];
 
-function monthly(req, res) {
+async function monthly(req, res) {
   let year = parseInt(req.query.year);
   let month = parseInt(req.query.month);
   if (month === -1) {
@@ -36,17 +30,10 @@ function monthly(req, res) {
   res.render('calendar/month', { year, month, monthNames, daysInMo, dow }); 
 }
 
-
 async function day(req, res) {
   const { year, month, day } = req.params;
   res.render('calendar/add-task', { year, month, day });
 }
-
-module.exports = {
-  monthly,
-  day,
-};
-
 
 async function addTask(req, res) {
   const { year, month, day } = req.params;
@@ -73,9 +60,29 @@ async function addTask(req, res) {
   }
 }
 
+async function editTask(req, res) {
+  const taskId = req.params.taskId;
+  const { title, description, deadline } = req.body;
+
+  try {
+    const task = await Task.findById(taskId);
+
+    // update task 
+    task.title = title;
+    task.description = description;
+    task.deadline = deadline;
+    await task.save();
+
+    res.redirect(`/calendar/year/${req.params.year}/month/${req.params.month}/day/${req.params.day}`);
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.render('error', { message: 'Error updating task', error });
+  }
+}
 
 module.exports = {
   monthly,
   day,
-  addTask
+  addTask,
+  editTask
 };
