@@ -14,4 +14,7 @@ router.post('/year/:year/month/:month/day/:day/add-task', calendarCtrl.addTask);
 // POST for editing task
 router.post('/year/:year/month/:month/day/:day/edit/:taskId', calendarCtrl.editTask);
 
+// POST for deleting task
+router.post('/year/:year/month/:month/day/:day/delete-task/:taskId', calendarCtrl.deleteTask);
+
 module.exports = router;

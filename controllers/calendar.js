@@ -48,10 +48,8 @@ async function addTask(req, res) {
       date,
     });
     await task.save();
-
     // get tasks for that specific day
     const tasks = await Task.find({ user: req.user._id, date: date });
-
     // renders the page with tasks and form for adding new tasks
     res.render('calendar/day', { date, tasks });
   } catch (error) {
@@ -66,7 +64,6 @@ async function editTask(req, res) {
 
   try {
     const task = await Task.findById(taskId);
-
     // update task 
     task.title = title;
     task.description = description;
@@ -80,9 +77,21 @@ async function editTask(req, res) {
   }
 }
 
+async function deleteTask(req, res) {
+  const taskId = req.params.taskId;
+  try {
+    await Task.findByIdAndDelete(taskId);
+    res.redirect(`/calendar/year/${req.params.year}/month/${req.params.month}/day/${req.params.day}`);
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.render('error', { message: 'Error deleting task', error });
+  }
+}
+
 module.exports = {
   monthly,
   day,
   addTask,
-  editTask
+  editTask,
+  deleteTask
 };

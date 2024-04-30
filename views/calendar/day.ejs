@@ -3,20 +3,23 @@
   <div>
     <h2><%= task.title %></h2>
     <p><%= task.description %></p>
+    
     <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/edit-task/<%= task._id %>" method="GET">
         <input type="text" name="title" value="<%= task.title %>">
         <textarea name="description"><%= task.description %></textarea>
         <button type="submit">Edit</button>
-      </form>
+    </form>
+
+    <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/delete-task/<%= task._id %>" method="POST">
+        <button type="submit">Delete</button>
+    </form>
   </div>
 <% }); %>
 
 <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/add-task" method="POST">
   <label for="title">Title:</label>
   <input type="text" id="title" name="title" required>
-
   <label for="description">Description:</label>
   <textarea id="description" name="description"></textarea>
-
   <button type="submit">Add Task</button>
 </form>
