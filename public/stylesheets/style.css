@@ -16,7 +16,7 @@ main {
 }
 
 a {
-  color: purple;
+  color: brown;
   text-decoration: none;
 }
 
@@ -33,17 +33,17 @@ a {
   align-items: center;
   height: 10vmin;
   width: 10vmin;
-  border: 0.5vmin solid plum;
+  border: 0.5vmin solid burlywood;
   font-size: 3vmin;
 } 
 
 #calendar > div:nth-child(n+1):nth-child(-n+7) {
-  background-color: purple;
+  background-color: burlywood;
   color: white;
 }
 
 #calendar > a > div:hover {
-  background-color: #ffccff;
+  background-color: beige;
   cursor: pointer;
 }
 
@@ -62,4 +62,9 @@ nav, footer {
 
 .login img {
   height: 30px;
+}
+
+.task-container {
+  border: 3px solid brown;
+  padding: 2vmin;
 }

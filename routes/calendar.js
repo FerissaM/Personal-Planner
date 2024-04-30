@@ -12,9 +12,11 @@ router.get('/year/:year/month/:month/day/:day', calendarCtrl.day);
 router.post('/year/:year/month/:month/day/:day/add-task', calendarCtrl.addTask);
 
 // POST for editing task
-router.post('/year/:year/month/:month/day/:day/edit/:taskId', calendarCtrl.editTask);
+router.put('/year/:year/month/:month/day/:day/edit-task/:taskId', calendarCtrl.editTask);
 
 // POST for deleting task
 router.post('/year/:year/month/:month/day/:day/delete-task/:taskId', calendarCtrl.deleteTask);
+
+router.get('/year/:year/month/:month/day/:day/task/:id', calendarCtrl.show); 
 
 module.exports = router;

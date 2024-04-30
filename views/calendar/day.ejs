@@ -1,10 +1,12 @@
+<%- include('../partials/header') %>
 <h1><%= date.toLocaleDateString() %></h1>
 <% tasks.forEach(task => { %>
-  <div>
+<a href="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/task/<%= task._id %>">
+    <div class="task-container">
     <h2><%= task.title %></h2>
     <p><%= task.description %></p>
     
-    <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/edit-task/<%= task._id %>" method="GET">
+    <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/edit-task/<%= task._id %>?_method=PUT" method="POST">
         <input type="text" name="title" value="<%= task.title %>">
         <textarea name="description"><%= task.description %></textarea>
         <button type="submit">Edit</button>
@@ -14,6 +16,7 @@
         <button type="submit">Delete</button>
     </form>
   </div>
+</a>
 <% }); %>
 
 <form action="/calendar/year/<%= date.getFullYear() %>/month/<%= date.getMonth() + 1 %>/day/<%= date.getDate() %>/add-task" method="POST">

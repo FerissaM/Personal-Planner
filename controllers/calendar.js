@@ -31,9 +31,19 @@ async function monthly(req, res) {
 }
 
 async function day(req, res) {
-  const { year, month, day } = req.params;
-  res.render('calendar/add-task', { year, month, day });
-}
+    const { year, month, day } = req.params;
+  
+    try {
+      const date = new Date(year, month - 1, day);
+      // get tasks for that specific day
+      const tasks = await Task.find({ user: req.user._id, date: date });
+      // renders the page with tasks and form for adding new tasks
+      res.render('calendar/day', { date, tasks });
+    } catch (error) {
+      console.error("Error adding task:", error);
+      res.render('error', { message: 'Error adding task', error });
+    }
+  }
 
 async function addTask(req, res) {
   const { year, month, day } = req.params;
@@ -88,10 +98,18 @@ async function deleteTask(req, res) {
   }
 }
 
+async function show(req, res) {
+  const task = await Task.findById(req.params.id);
+  const { year, month, day } = req.params;
+  const date = new Date(year, month - 1, day);
+  res.render('calendar/show', { task, date });
+}
+
 module.exports = {
   monthly,
   day,
   addTask,
   editTask,
-  deleteTask
+  deleteTask,
+  show
 };
