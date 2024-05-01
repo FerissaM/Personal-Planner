@@ -1,3 +1,42 @@
 <%- include('../partials/header') %>
 <h1><%= date.toLocaleDateString() %></h1>
     <p><%= task.title %></p>
+    <div id="task-details">
+        <h2>Notes</h2>
+        <textarea id="notes-field" placeholder="Enter notes here"></textarea>
+        <button id="save-notes-btn">Save</button>
+    <div id="saved-notes-section"></div>
+    </div>
+
+<script>
+function saveNotesToStorage(notes) {
+    localStorage.setItem('savedNotes', notes);
+}
+
+function getNotesFromStorage() {
+    return localStorage.getItem('savedNotes') || '';
+}
+
+function displaySavedNotes() {
+    let savedNotes = getNotesFromStorage();
+    let savedNotesSection = document.getElementById("saved-notes-section");
+    let notesParagraph = document.createElement("p");
+    notesParagraph.textContent = "Notes: " + savedNotes;
+    savedNotesSection.appendChild(notesParagraph);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    displaySavedNotes();
+});
+
+document.getElementById("save-notes-btn").addEventListener("click", function() {
+    let notes = document.getElementById("notes-field").value;
+    console.log("Notes:", notes);
+    saveNotesToStorage(notes);
+    let savedNotesSection = document.getElementById("saved-notes-section");
+    savedNotesSection.innerHTML = '';
+    displaySavedNotes();
+});
+</script>
+
+<%- include('../partials/footer') %>

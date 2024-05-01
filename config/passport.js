@@ -9,11 +9,11 @@ passport.use(new GoogleStrategy(
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK
   },
-  // The verify callback function...
-  // Marking a function as an async function allows us
-  // to consume promises using the await keyword
+  // The verify callback function
+  // Let's use async/await!
   async function(accessToken, refreshToken, profile, cb) {
-    // When using async/await  we use a
+    // A user has logged in with OAuth...
+        // When using async/await  we use a
     // try/catch block to handle an error
     try {
       // A user has logged in with OAuth...
@@ -42,3 +42,4 @@ passport.deserializeUser(async function(userId, cb) {
   // It's nice to be able to use await in-line!
   cb(null, await User.findById(userId));
 });
+
