@@ -79,7 +79,6 @@ async function editTask(req, res) {
     task.description = description;
     task.deadline = deadline;
     await task.save();
-
     res.redirect(`/calendar/year/${req.params.year}/month/${req.params.month}/day/${req.params.day}`);
   } catch (error) {
     console.error("Error updating task:", error);
@@ -99,10 +98,15 @@ async function deleteTask(req, res) {
 }
 
 async function show(req, res) {
-  const task = await Task.findById(req.params.id);
-  const { year, month, day } = req.params;
-  const date = new Date(year, month - 1, day);
-  res.render('calendar/show', { task, date });
+  try {
+      const task = await Task.findById(req.params.id);
+      const { year, month, day } = req.params;
+      const date = new Date(year, month - 1, day);
+      res.render('calendar/show', { task, date });
+  } catch (error) {
+      console.error("Error fetching task:", error);
+      res.render('error', { message: 'Error fetching task', error });
+  }
 }
 
 module.exports = {

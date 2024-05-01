@@ -15,6 +15,7 @@ require('./config/passport');
 
 const indexRouter = require('./routes/index');
 const calendarRouter = require('./routes/calendar');
+const notesRouter = require('./routes/notes');
 
 var app = express();
 
@@ -49,6 +50,7 @@ const ensureLoggedIn = require('./config/ensureLoggedIn');
 
 app.use('/', indexRouter);
 app.use('/calendar', ensureLoggedIn, calendarRouter);
+app.use('/', ensureLoggedIn, notesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

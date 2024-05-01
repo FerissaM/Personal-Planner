@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const noteSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
+const noteSchema = new mongoose.Schema({      
   content: {
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now
-  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 }, { timestamps: true });
 
 const taskSchema = new Schema({
