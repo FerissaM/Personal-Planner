@@ -20,6 +20,7 @@ enables users to create and manage lists of tasks, events, projects, or other pe
 
 ## Getting Started
 [Click to view Project Planning] (https://trello.com/b/u1LHOENe/project-2-personal-planner-app)
+[Click to open the app] (https://personal-planner-4338e33d8138.herokuapp.com/)
 
 ## Next Steps
 AAU, I want to click "Log In With Google" to access the features the app offers its users.
